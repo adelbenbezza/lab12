@@ -1,0 +1,33 @@
+1. git clone https://github.com/u-boot/u-boot.git
+2. cd u-boot
+   git checkout v2018.05
+
+3. git branch
+
+4. ls configs | grep boneblack
+   on trouve le defconfig_file de notre carte: am335x_boneblack_vboot_defconfig
+
+5. make am335x_boneblack_defconfig
+   vim .config
+
+6. make 
+   on trouve bien les fichiers: MLO MLO.byteswap et u-boot.img
+
+8. mount
+
+9. sudo fdisk -l
+
+10. umount dev/sdc1
+
+11. sudo dd if=/dev/zero of=/dev/sdc bs=1024 count=1024
+
+12. sudo cfdisk /dev/sdc
+    on voit bien qu'il n'ya plus de partition
+    on creer une nouvelle partition de type W95 FAT16 LBA
+
+13. sudo mkfs.vfat -F 32 /dev/sdc1 -n boot 
+
+14. cd u-boot
+    sudo cp MLO u-boot.img -t /media/student/boot
+
+
